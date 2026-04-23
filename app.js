@@ -251,6 +251,11 @@ function updateStats() {
     if (orderCountVal) {
         orderCountVal.textContent = todaysOrders.length;
     }
+    // Cập nhật ngưỡng đơn màn hình lịch sử
+    const historyCount = document.getElementById('history-order-count');
+    if (historyCount) {
+        historyCount.textContent = todaysOrders.length;
+    }
 }
 
 // --- History Logic ---
@@ -317,10 +322,9 @@ window.hideProductForm = () => {
 };
 
 window.saveProduct = () => {
-    const name = document.getElementById('p-name').value;
+    const name = document.getElementById('p-name').value.trim();
     const price = parseFloat(document.getElementById('p-price').value);
     const category = document.getElementById('p-category').value;
-    const image = document.getElementById('p-image').value || '';
     const stock = parseInt(document.getElementById('p-stock').value) || 0;
 
     if (!name || isNaN(price)) {
@@ -332,27 +336,29 @@ window.saveProduct = () => {
 
     if (editingProductId) {
         const idx = products.findIndex(p => p.id === editingProductId);
-        products[idx] = { ...products[idx], name, price, category, image, stock, icon };
+        products[idx] = { ...products[idx], name, price, category, stock, icon };
     } else {
-        products.push({ id: Date.now(), name, price, category, image, stock, icon });
+        products.push({ id: Date.now(), name, price, category, image: '', stock, icon });
     }
 
     localStorage.setItem('pos_products_v3', JSON.stringify(products));
     hideProductForm();
     renderManagementGrid();
-    renderProducts(); // Keep POS grid in sync
+    renderProducts();
 };
 
 window.editProduct = (id) => {
     const p = products.find(p => p.id === id);
+    if (!p) return;
     editingProductId = id;
     document.getElementById('p-name').value = p.name;
     document.getElementById('p-price').value = p.price;
     document.getElementById('p-category').value = p.category;
-    document.getElementById('p-image').value = p.image;
     document.getElementById('p-stock').value = p.stock;
 
     document.getElementById('product-form-container').style.display = 'block';
+    // Scroll to form
+    document.getElementById('product-form-container').scrollIntoView({ behavior: 'smooth' });
     document.getElementById('save-product-btn').textContent = 'Cập nhật';
 };
 
@@ -369,7 +375,6 @@ function clearForm() {
     document.getElementById('p-name').value = '';
     document.getElementById('p-price').value = '';
     document.getElementById('p-category').value = 'Trà';
-    document.getElementById('p-image').value = '';
     document.getElementById('p-stock').value = '100';
 }
 

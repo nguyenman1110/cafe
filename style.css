@@ -145,7 +145,6 @@ body {
   background: var(--bg-card);
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  overflow: hidden;
   margin-bottom: 24px;
 }
 
