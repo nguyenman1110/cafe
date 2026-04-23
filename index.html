@@ -55,10 +55,19 @@
             </header>
 
             <main class="main-content">
-                <section class="product-panel" id="product-grid">
-                    <!-- Products will be injected by JS -->
-                </section>
+                <!-- Vùng chứa Sản phẩm và Tab -->
+                <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+                    <!-- Category Tabs -->
+                    <div class="category-tabs" id="category-tabs">
+                        <!-- Được render tự động bởi JS -->
+                    </div>
+                    
+                    <section class="product-panel" id="product-grid">
+                        <!-- Products will be injected by JS -->
+                    </section>
+                </div>
 
+                <!-- Giỏ hàng (Fixed bên phải) -->
                 <aside class="cart-panel">
                     <div class="cart-header">
                         <h2>Hóa đơn</h2>
@@ -140,8 +149,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Link ảnh (tùy chọn)</label>
-                        <input type="text" id="p-image" placeholder="assets/espresso.png">
+                        <label>Tồn kho</label>
+                        <input type="number" id="p-stock" placeholder="100">
                     </div>
                     <div style="grid-column: span 2; display: flex; gap: 12px; margin-top: 12px;">
                         <button class="btn btn-primary" id="save-product-btn" onclick="saveProduct()">Lưu sản phẩm</button>
@@ -151,10 +160,11 @@
             </div>
 
             <div class="data-card">
-                <div class="data-row data-header">
+                <div class="data-row data-header" style="grid-template-columns: 1fr 1fr 1fr 100px 100px;">
                     <span>Tên sản phẩm</span>
                     <span>Danh mục</span>
                     <span>Giá</span>
+                    <span>Từn kho</span>
                     <span>Thao tác</span>
                 </div>
                 <div id="management-product-list">
@@ -168,7 +178,7 @@
     <div class="modal-overlay" id="checkout-modal">
         <div class="modal-content">
             <h2 class="modal-title">Xác nhận thanh toán</h2>
-            <p class="modal-text">Bạn có chắc chắn muốn thanh toán đơn hàng này?</p>
+            <p class="modal-text">Bạn có chắc chắn muốn chốt hóa đơn này?</p>
             <div class="modal-actions">
                 <button class="btn btn-secondary" onclick="closeCheckoutModal()">Hủy</button>
                 <button class="btn btn-primary" onclick="confirmCheckout()">Đồng ý</button>
