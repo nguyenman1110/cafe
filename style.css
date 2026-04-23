@@ -85,6 +85,13 @@ body {
   margin-left: var(--sidebar-width);
 }
 
+.main-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+}
+
 /* Forms & Tab Views */
 .tab-view {
   display: none;
