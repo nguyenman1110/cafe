@@ -1,468 +1,473 @@
-// Data Persistence Initialization
-const defaultProducts = [
-    { id: 1, name: 'Trà đá', price: 5000, category: 'Trà', image: '', stock: 100, icon: '🍵' },
-    { id: 2, name: 'Trà quất', price: 10000, category: 'Trà', image: '', stock: 100, icon: '🍵' },
-    { id: 3, name: 'Nhân trần', price: 5000, category: 'Trà', image: '', stock: 100, icon: '🍵' },
-    { id: 4, name: 'Trà Việt quất', price: 0, category: 'Trà', image: '', stock: 100, icon: '🍵' },
-    { id: 5, name: 'Trà chanh leo hạt đá', price: 0, category: 'Trà', image: '', stock: 100, icon: '🍵' },
-    { id: 6, name: 'Trà dâu tằm', price: 0, category: 'Trà', image: '', stock: 100, icon: '🍵' },
-    { id: 7, name: 'Trà bí đao sương sáo', price: 0, category: 'Trà', image: '', stock: 100, icon: '🍵' },
-    
-    { id: 8, name: 'Trà sữa matcha', price: 0, category: 'Trà sữa', image: '', stock: 100, icon: '🧋' },
-    { id: 9, name: 'Trà sữa Phúc Long', price: 0, category: 'Trà sữa', image: '', stock: 100, icon: '🧋' },
-    { id: 10, name: 'Trà sữa trân châu đường đen', price: 0, category: 'Trà sữa', image: '', stock: 100, icon: '🧋' },
+/* ============================================================
+   Cà phê Gốc Đa — POS System
+   app.js — Full rewrite for stability
+============================================================ */
 
-    { id: 11, name: 'Sting đỏ', price: 15000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 12, name: 'Sting vàng', price: 15000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 13, name: 'Bò húc', price: 18000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 14, name: 'C2 to', price: 15000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 15, name: 'C2 nhỡ', price: 10000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 16, name: 'Revive vàng', price: 15000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 17, name: 'Revive trắng', price: 15000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 18, name: 'Cam lon', price: 15000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 19, name: 'Coca', price: 10000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 20, name: 'Bon cha', price: 15000, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 21, name: 'Cà phê nâu', price: 25000, category: 'Nước ngọt', image: '', stock: 100, icon: '☕' },
-    { id: 22, name: 'Nước mía', price: 0, category: 'Nước ngọt', image: '', stock: 100, icon: '🥤' },
-    { id: 23, name: 'Nước dừa', price: 0, category: 'Nước ngọt', image: '', stock: 100, icon: '🥥' },
+// ── Constants ──────────────────────────────────────────────
+const STORAGE_KEY_PRODUCTS     = 'cafe_goc_da_products_v1';
+const STORAGE_KEY_TRANSACTIONS = 'cafe_goc_da_transactions_v1';
+const POS_PASSWORD             = 'man123';
 
-    { id: 24, name: 'Bia 333', price: 20000, category: 'Đồ có cồn', image: '', stock: 100, icon: '🍺' },
-    { id: 25, name: 'Bia Sài Gòn', price: 20000, category: 'Đồ có cồn', image: '', stock: 100, icon: '🍺' },
-
-    { id: 26, name: 'Thăng long cứng', price: 20000, category: 'Thuốc lá', image: '', stock: 100, icon: '🚬' },
-    { id: 27, name: 'Thăng long mềm', price: 18000, category: 'Thuốc lá', image: '', stock: 100, icon: '🚬' },
-    { id: 28, name: 'Thuốc Vina', price: 25000, category: 'Thuốc lá', image: '', stock: 100, icon: '🚬' },
-
-    { id: 29, name: 'Cá bóng', price: 15000, category: 'Đồ ăn', image: '', stock: 100, icon: '🐟' },
-    { id: 30, name: 'Cá chỉ vàng', price: 5000, category: 'Đồ ăn', image: '', stock: 100, icon: '🐟' },
-
-    { id: 31, name: 'Hướng dương truyền thống', price: 10000, category: 'Hướng dương', image: '', stock: 100, icon: '🌻' },
-    { id: 32, name: 'Hướng dương vị dừa', price: 12000, category: 'Hướng dương', image: '', stock: 100, icon: '🌻' },
-
-    { id: 33, name: 'Nha đam', price: 0, category: 'Topping', image: '', stock: 100, icon: '🧊' },
-    { id: 34, name: 'Trân châu trắng', price: 0, category: 'Topping', image: '', stock: 100, icon: '⚪' }
-];
-
-// Migrate old data or use default
-let products = JSON.parse(localStorage.getItem('pos_products_v3')) || defaultProducts;
-products = products.map(p => ({
-    ...p,
-    stock: p.stock !== undefined ? p.stock : 100,
-    icon: p.icon || '📦'
-}));
-
-let transactions = JSON.parse(localStorage.getItem('pos_transactions_v3')) || [];
-let cart = [];
-let editingProductId = null;
-let currentCategory = 'Tất cả';
-
-const CATEGORIES = ['Tất cả', 'Trà', 'Trà sữa', 'Nước ngọt', 'Đồ có cồn', 'Thuốc lá', 'Đồ ăn', 'Hướng dương', 'Topping'];
-
-// DOM Elements
-const productGrid = document.getElementById('product-grid');
-const categoryTabsContainer = document.getElementById('category-tabs');
-const cartItemsContainer = document.getElementById('cart-items-container');
-const cartTotalElement = document.getElementById('cart-total');
-const checkoutBtn = document.getElementById('checkout-btn');
-const emptyMsg = document.getElementById('empty-cart-msg');
-const historyRevenueVal = document.getElementById('history-revenue-val');
-const orderCountVal = document.getElementById('order-count');
-
-// Navigation / Tab Switching
-window.switchTab = (tabId) => {
-    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-    document.getElementById(`nav-${tabId}`).classList.add('active');
-
-    document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
-    document.getElementById(`view-${tabId}`).classList.add('active');
-
-    if (tabId === 'history') renderHistory();
-    if (tabId === 'products') renderManagementGrid();
-    if (tabId === 'pos') {
-        renderCategoryTabs();
-        renderProducts();
-    }
-    if (tabId === 'menu') renderMenu();
+const CATEGORY_META = {
+    'Trà':           { color: 'green',  en: 'Tea',            icon: '🍵' },
+    'Trà sữa':       { color: 'teal',   en: 'Milk Tea',       icon: '🧋' },
+    'Nước ngọt':     { color: 'blue',   en: 'Soft Drinks',    icon: '🥤' },
+    'Đồ có cồn':     { color: 'red',    en: 'Alcohol',        icon: '🍺' },
+    'Thuốc lá':      { color: 'purple', en: 'Cigarettes',     icon: '🚬' },
+    'Đồ ăn':         { color: 'orange', en: 'Snacks',         icon: '🐟' },
+    'Hướng dương':   { color: 'yellow', en: 'Sunflower Seeds',icon: '🌻' },
+    'Topping':       { color: 'pink',   en: 'Toppings',       icon: '🧊' }
 };
 
-// --- POS Logic ---
-function renderCategoryTabs() {
-    if (!categoryTabsContainer) return;
-    categoryTabsContainer.innerHTML = CATEGORIES.map(cat => `
-        <div class="cat-tab ${cat === currentCategory ? 'active' : ''}" onclick="setCategory('${cat}')">
-            ${cat}
-        </div>
-    `).join('');
+const CATEGORIES = ['Tất cả', ...Object.keys(CATEGORY_META)];
+
+// ── Default Products ────────────────────────────────────────
+const DEFAULT_PRODUCTS = [
+    { id: 1,  name: 'Trà đá',                     price: 5000,  category: 'Trà',        stock: 100 },
+    { id: 2,  name: 'Trà quất',                   price: 10000, category: 'Trà',        stock: 100 },
+    { id: 3,  name: 'Nhân trần',                  price: 5000,  category: 'Trà',        stock: 100 },
+    { id: 4,  name: 'Trà Việt quất',              price: 0,     category: 'Trà',        stock: 100 },
+    { id: 5,  name: 'Trà chanh leo hạt đá',       price: 0,     category: 'Trà',        stock: 100 },
+    { id: 6,  name: 'Trà dâu tằm',               price: 0,     category: 'Trà',        stock: 100 },
+    { id: 7,  name: 'Trà bí đao sương sáo',       price: 0,     category: 'Trà',        stock: 100 },
+    { id: 8,  name: 'Trà sữa matcha',             price: 0,     category: 'Trà sữa',    stock: 100 },
+    { id: 9,  name: 'Trà sữa Phúc Long',          price: 0,     category: 'Trà sữa',    stock: 100 },
+    { id: 10, name: 'Trà sữa trân châu đường đen', price: 0,    category: 'Trà sữa',    stock: 100 },
+    { id: 11, name: 'Sting đỏ',                   price: 15000, category: 'Nước ngọt',  stock: 100 },
+    { id: 12, name: 'Sting vàng',                 price: 15000, category: 'Nước ngọt',  stock: 100 },
+    { id: 13, name: 'Bò húc',                     price: 18000, category: 'Nước ngọt',  stock: 100 },
+    { id: 14, name: 'C2 to',                      price: 15000, category: 'Nước ngọt',  stock: 100 },
+    { id: 15, name: 'C2 nhỡ',                     price: 10000, category: 'Nước ngọt',  stock: 100 },
+    { id: 16, name: 'Revive vàng',                price: 15000, category: 'Nước ngọt',  stock: 100 },
+    { id: 17, name: 'Revive trắng',               price: 15000, category: 'Nước ngọt',  stock: 100 },
+    { id: 18, name: 'Cam lon',                    price: 15000, category: 'Nước ngọt',  stock: 100 },
+    { id: 19, name: 'Coca',                       price: 10000, category: 'Nước ngọt',  stock: 100 },
+    { id: 20, name: 'Bon cha',                    price: 15000, category: 'Nước ngọt',  stock: 100 },
+    { id: 21, name: 'Cà phê nâu',                 price: 25000, category: 'Nước ngọt',  stock: 100 },
+    { id: 22, name: 'Nước mía',                   price: 0,     category: 'Nước ngọt',  stock: 100 },
+    { id: 23, name: 'Nước dừa',                   price: 0,     category: 'Nước ngọt',  stock: 100 },
+    { id: 24, name: 'Bia 333',                    price: 20000, category: 'Đồ có cồn',  stock: 100 },
+    { id: 25, name: 'Bia Sài Gòn',                price: 20000, category: 'Đồ có cồn',  stock: 100 },
+    { id: 26, name: 'Thăng long cứng',            price: 20000, category: 'Thuốc lá',   stock: 100 },
+    { id: 27, name: 'Thăng long mềm',             price: 18000, category: 'Thuốc lá',   stock: 100 },
+    { id: 28, name: 'Thuốc Vina',                 price: 25000, category: 'Thuốc lá',   stock: 100 },
+    { id: 29, name: 'Cá bóng',                    price: 15000, category: 'Đồ ăn',      stock: 100 },
+    { id: 30, name: 'Cá chỉ vàng',               price: 5000,  category: 'Đồ ăn',      stock: 100 },
+    { id: 31, name: 'Hướng dương truyền thống',   price: 10000, category: 'Hướng dương', stock: 100 },
+    { id: 32, name: 'Hướng dương vị dừa',         price: 12000, category: 'Hướng dương', stock: 100 },
+    { id: 33, name: 'Nha đam',                    price: 0,     category: 'Topping',     stock: 100 },
+    { id: 34, name: 'Trân châu trắng',            price: 0,     category: 'Topping',     stock: 100 }
+].map(p => ({
+    ...p,
+    icon: (CATEGORY_META[p.category] || {}).icon || '📦',
+    image: ''
+}));
+
+// ── State ───────────────────────────────────────────────────
+function loadProducts() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY_PRODUCTS);
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            return parsed.map(p => ({
+                ...p,
+                stock: p.stock !== undefined ? p.stock : 100,
+                icon:  p.icon  || (CATEGORY_META[p.category] || {}).icon || '📦',
+                image: p.image || ''
+            }));
+        }
+    } catch(e) { console.warn('Failed to load products', e); }
+    return DEFAULT_PRODUCTS;
 }
 
-window.setCategory = (cat) => {
+function saveProducts() {
+    localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+}
+
+function loadTransactions() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY_TRANSACTIONS);
+        if (saved) return JSON.parse(saved);
+    } catch(e) { console.warn('Failed to load transactions', e); }
+    return [];
+}
+
+function saveTransactions() {
+    localStorage.setItem(STORAGE_KEY_TRANSACTIONS, JSON.stringify(transactions));
+}
+
+let products     = loadProducts();
+let transactions = loadTransactions();
+let cart         = [];
+let editingProductId = null;
+let currentCategory  = 'Tất cả';
+
+// ── DOM helpers ─────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+
+// ── Navigation ──────────────────────────────────────────────
+window.switchTab = function(tabId) {
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    const navEl = $('nav-' + tabId);
+    if (navEl) navEl.classList.add('active');
+
+    document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
+    const viewEl = $('view-' + tabId);
+    if (viewEl) viewEl.classList.add('active');
+
+    if (tabId === 'history')  renderHistory();
+    if (tabId === 'products') renderManagementGrid();
+    if (tabId === 'menu')     renderMenu();
+    if (tabId === 'pos')      { renderCategoryTabs(); renderProducts(); }
+};
+
+// ── Category Tabs (POS) ─────────────────────────────────────
+function renderCategoryTabs() {
+    const container = $('category-tabs');
+    if (!container) return;
+    container.innerHTML = CATEGORIES.map(cat =>
+        `<div class="cat-tab ${cat === currentCategory ? 'active' : ''}"
+              onclick="setCategory('${cat.replace(/'/g, "\\'")}')">${cat}</div>`
+    ).join('');
+}
+
+window.setCategory = function(cat) {
     currentCategory = cat;
     renderCategoryTabs();
     renderProducts();
 };
 
+// ── Product Grid (POS) ──────────────────────────────────────
 function renderProducts() {
-    const filtered = currentCategory === 'Tất cả' 
-        ? products 
+    const grid = $('product-grid');
+    if (!grid) return;
+    const list = currentCategory === 'Tất cả'
+        ? products
         : products.filter(p => p.category === currentCategory);
 
-    productGrid.innerHTML = filtered.map(product => {
-        const imgHtml = product.image 
-            ? `<img src="${product.image}" alt="${product.name}" class="product-image">`
-            : `<div class="product-image-placeholder" style="font-size: 50px;">${product.icon}</div>`;
-            
-        return `
-        <div class="product-card" onclick="addToCart(${product.id})" style="${product.stock <= 0 ? 'opacity: 0.5; pointer-events: none;' : ''}">
-            ${imgHtml}
-            <div class="product-info">
-                <div class="product-name">${product.name}</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-                    <div class="product-price">${parseFloat(product.price).toLocaleString('vi-VN')} đ</div>
-                    <div style="font-size: 12px; color: ${product.stock <= 5 ? '#ef4444' : 'var(--text-muted)'}; font-weight: 600;">
-                        SL: ${product.stock}
-                    </div>
-                </div>
-            </div>
-        </div>
-    `}).join('');
-    updateStats();
-}
-
-window.addToCart = (productId) => {
-    const product = products.find(p => p.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
-
-    const currentQty = existingItem ? existingItem.quantity : 0;
-    if (currentQty >= product.stock) {
-        alert(`Sản phẩm ${product.name} chỉ còn ${product.stock} trong kho!`);
+    if (list.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-muted);padding:24px;">Không có sản phẩm.</p>';
         return;
     }
 
-    if (existingItem) {
-        existingItem.quantity += 1;
+    grid.innerHTML = list.map(p => {
+        const imgHtml = p.image
+            ? `<img src="${p.image}" alt="${p.name}" class="product-image">`
+            : `<div class="product-image-placeholder">${p.icon}</div>`;
+        const soldOut = p.stock <= 0;
+        return `<div class="product-card" onclick="addToCart(${p.id})"
+                     style="${soldOut ? 'opacity:0.4;pointer-events:none;' : ''}">
+            ${imgHtml}
+            <div class="product-info">
+                <div class="product-name">${p.name}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+                    <div class="product-price">${fmt(p.price)}</div>
+                    <div style="font-size:11px;font-weight:700;color:${p.stock <= 5 ? '#ef4444' : 'var(--text-muted)'};">
+                        SL: ${p.stock}
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+
+    updateStats();
+}
+
+// ── Cart ─────────────────────────────────────────────────────
+window.addToCart = function(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    const existing = cart.find(i => i.id === productId);
+    const qty = existing ? existing.quantity : 0;
+    if (qty >= product.stock) {
+        alert(`${product.name} chỉ còn ${product.stock} trong kho!`);
+        return;
+    }
+    if (existing) {
+        existing.quantity += 1;
     } else {
         cart.push({ ...product, quantity: 1 });
     }
     renderCart();
 };
 
+window.updateQuantity = function(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    const product = products.find(p => p.id === id);
+    if (delta > 0 && item.quantity >= product.stock) {
+        alert(`Không thể thêm quá tồn kho (${product.stock}).`);
+        return;
+    }
+    item.quantity += delta;
+    if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
+    renderCart();
+};
+
 function renderCart() {
+    const container   = $('cart-items-container');
+    const emptyMsg    = $('empty-cart-msg');
+    const totalEl     = $('cart-total');
+    const checkoutBtn = $('checkout-btn');
+    if (!container) return;
+
     if (cart.length === 0) {
-        emptyMsg.style.display = 'block';
-        cartItemsContainer.innerHTML = '';
-        updateCartTotal(0);
+        if (emptyMsg)    emptyMsg.style.display = 'block';
+        container.innerHTML = '';
+        if (totalEl)     totalEl.textContent = '0 đ';
+        if (checkoutBtn) { checkoutBtn.disabled = true; checkoutBtn.style.opacity = '0.5'; }
         return;
     }
 
-    emptyMsg.style.display = 'none';
-    cartItemsContainer.innerHTML = cart.map(item => `
+    if (emptyMsg) emptyMsg.style.display = 'none';
+    container.innerHTML = cart.map(item => `
         <div class="cart-item">
             <div class="cart-item-details">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">${parseFloat(item.price).toLocaleString('vi-VN')} đ</div>
+                <div class="cart-item-price">${fmt(item.price)}</div>
                 <div class="quantity-control">
-                    <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                    <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
                     <span>${item.quantity}</span>
                     <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                 </div>
             </div>
-            <div style="font-weight: 700;">${(item.price * item.quantity).toLocaleString('vi-VN')} đ</div>
-        </div>
-    `).join('');
+            <div style="font-weight:700;white-space:nowrap;">${fmt(item.price * item.quantity)}</div>
+        </div>`).join('');
 
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    updateCartTotal(total);
+    const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+    if (totalEl)     totalEl.textContent = fmt(total);
+    if (checkoutBtn) { checkoutBtn.disabled = false; checkoutBtn.style.opacity = '1'; }
 }
 
-function updateQuantity(id, delta) {
-    const item = cart.find(i => i.id === id);
-    if (!item) return;
-    const product = products.find(p => p.id === id);
-
-    if (delta > 0 && item.quantity >= product.stock) {
-        alert(`Không thể thêm quá số lượng tồn kho (${product.stock}).`);
-        return;
-    }
-
-    item.quantity += delta;
-    if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
-    renderCart();
+// ── Checkout ─────────────────────────────────────────────────
+const checkoutBtnEl = $('checkout-btn');
+if (checkoutBtnEl) {
+    checkoutBtnEl.addEventListener('click', () => {
+        if (cart.length === 0) return;
+        $('checkout-modal').classList.add('active');
+    });
 }
 
-function updateCartTotal(total) {
-    cartTotalElement.textContent = `${total.toLocaleString('vi-VN')} đ`;
-    checkoutBtn.disabled = cart.length === 0;
-    checkoutBtn.style.opacity = cart.length === 0 ? '0.5' : '1';
-}
-
-checkoutBtn.addEventListener('click', () => {
-    if (cart.length === 0) return;
-    document.getElementById('checkout-modal').classList.add('active');
-});
-
-window.closeCheckoutModal = () => {
-    document.getElementById('checkout-modal').classList.remove('active');
+window.closeCheckoutModal = function() {
+    $('checkout-modal').classList.remove('active');
 };
 
-window.confirmCheckout = () => {
-    document.getElementById('checkout-modal').classList.remove('active');
-    
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+window.confirmCheckout = function() {
+    $('checkout-modal').classList.remove('active');
+    const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
 
-    // Update stock & map logic
     cart.forEach(item => {
-        const p = products.find(prod => prod.id === item.id);
-        if(p) {
-            p.stock -= item.quantity;
-        }
+        const p = products.find(x => x.id === item.id);
+        if (p) p.stock = Math.max(0, p.stock - item.quantity);
     });
 
-    // Save transaction
     transactions.push({
-        id: Date.now(),
+        id:        Date.now(),
         timestamp: new Date().toLocaleString('vi-VN'),
-        items: [...cart],
-        total: total
+        items:     cart.map(i => ({ ...i })),
+        total
     });
-    
-    // Save to local storage
-    localStorage.setItem('pos_transactions_v3', JSON.stringify(transactions));
-    localStorage.setItem('pos_products_v3', JSON.stringify(products));
 
-    // Feedback
-    checkoutBtn.innerHTML = '<span>Thành công!</span>';
+    saveProducts();
+    saveTransactions();
+
+    const btn = $('checkout-btn');
+    if (btn) btn.innerHTML = '<span>✓ Thành công!</span>';
     setTimeout(() => {
         cart = [];
         renderCart();
         renderProducts();
-        renderManagementGrid(); // Bổ sung cập nhật lưới quản lý
-        updateStats();
-        checkoutBtn.innerHTML = '<span>Thanh toán</span>';
-    }, 1000);
+        if (btn) btn.innerHTML = '<span>Thanh toán</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+    }, 1200);
 };
 
+const clearCartBtn = $('clear-cart');
+if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', () => { cart = []; renderCart(); });
+}
+
+// ── Stats ────────────────────────────────────────────────────
 function updateStats() {
     const today = new Date().toLocaleDateString('vi-VN');
-    const todaysOrders = transactions.filter(t => t.timestamp.includes(today));
-    const revenue = todaysOrders.reduce((s, o) => s + o.total, 0);
+    const todays = transactions.filter(t => t.timestamp.startsWith(today) || t.timestamp.includes(today.replace(/\//g, '/')));
+    const revenue = todays.reduce((s, t) => s + t.total, 0);
+    const count   = todays.length;
 
-    if (historyRevenueVal) {
-        historyRevenueVal.textContent = `${revenue.toLocaleString('vi-VN')} đ`;
-    }
-    if (orderCountVal) {
-        orderCountVal.textContent = todaysOrders.length;
-    }
-    // Cập nhật ngưỡng đơn màn hình lịch sử
-    const historyCount = document.getElementById('history-order-count');
-    if (historyCount) {
-        historyCount.textContent = todaysOrders.length;
-    }
+    const ocEl = $('order-count');        if (ocEl) ocEl.textContent = count;
+    const rvEl = $('history-revenue-val'); if (rvEl) rvEl.textContent = fmt(revenue);
+    const hcEl = $('history-order-count'); if (hcEl) hcEl.textContent = count;
 }
 
-// --- History Logic ---
-window.requestRevenuePassword = () => {
-    const pwd = prompt("Vui lòng nhập mật khẩu để xem doanh thu:");
-    if (pwd === "man123") {
-        document.getElementById('revenue-unlock-btn').style.display = 'none';
-        document.getElementById('history-revenue-val').style.display = 'block';
+// ── History ──────────────────────────────────────────────────
+function renderHistory() {
+    const list = $('history-list');
+    if (!list) return;
+    updateStats();
+    if (transactions.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-muted);">Chưa có giao dịch nào.</div>';
+        return;
+    }
+    list.innerHTML = transactions.slice().reverse().map(t => `
+        <div class="data-row">
+            <span>${t.timestamp}</span>
+            <span>${t.items ? t.items.length : 0} món</span>
+            <span style="font-weight:700;">${fmt(t.total)}</span>
+            <button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;">Xem</button>
+        </div>`).join('');
+}
+
+window.requestRevenuePassword = function() {
+    const pwd = prompt('Nhập mật khẩu để xem doanh thu:');
+    if (pwd === POS_PASSWORD) {
+        const btn = $('revenue-unlock-btn');
+        const val = $('history-revenue-val');
+        if (btn) btn.style.display = 'none';
+        if (val) { val.style.display = 'block'; updateStats(); }
     } else if (pwd !== null) {
-        alert("Mật khẩu không đúng!");
+        alert('Mật khẩu không đúng!');
     }
 };
 
-function renderHistory() {
-    const historyList = document.getElementById('history-list');
-    historyList.innerHTML = transactions.slice().reverse().map(t => `
-        <div class="data-row">
-            <span>${t.timestamp}</span>
-            <span>${t.items.length} món</span>
-            <span style="font-weight: 700;">${t.total.toLocaleString('vi-VN')} đ</span>
-            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Xem</button>
-        </div>
-    `).join('');
-}
-
-// --- Product Management Logic ---
+// ── Product Management ───────────────────────────────────────
 function getIconForCategory(cat) {
-    if (cat === 'Trà') return '🍵';
-    if (cat === 'Trà sữa') return '🧋';
-    if (cat === 'Nước ngọt') return '🥤';
-    if (cat === 'Đồ có cồn') return '🍺';
-    if (cat === 'Thuốc lá') return '🚬';
-    if (cat === 'Đồ ăn') return '🐟';
-    if (cat === 'Hướng dương') return '🌻';
-    if (cat === 'Topping') return '🧊';
-    return '📦';
+    return (CATEGORY_META[cat] || {}).icon || '📦';
 }
 
 function renderManagementGrid() {
-    const list = document.getElementById('management-product-list');
-    list.innerHTML = products.map((p, i) => `
-        <div class="data-row" style="grid-template-columns: 1fr 1fr 1fr 100px 100px;">
-            <span style="font-weight: 600;">${p.icon} ${p.name}</span>
-            <span>${p.category}</span>
-            <span>${parseFloat(p.price).toLocaleString('vi-VN')} đ</span>
-            <span style="color: ${p.stock <= 5 ? '#ef4444' : 'inherit'}">${p.stock}</span>
-            <div style="display: flex; gap: 8px;">
-                <button class="btn btn-secondary" style="padding: 6px 12px;" onclick="editProduct(${p.id})">Sửa</button>
-                <button class="btn btn-secondary" style="padding: 6px 12px; color: #ef4444;" onclick="deleteProduct(${p.id})">Xóa</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-window.showAddProductForm = () => {
-    editingProductId = null;
-    document.getElementById('product-form-container').style.display = 'block';
-    document.getElementById('save-product-btn').textContent = 'Lưu sản phẩm';
-    clearForm();
-};
-
-window.hideProductForm = () => {
-    document.getElementById('product-form-container').style.display = 'none';
-};
-
-window.saveProduct = () => {
-    const name = document.getElementById('p-name').value.trim();
-    const price = parseFloat(document.getElementById('p-price').value);
-    const category = document.getElementById('p-category').value;
-    const stock = parseInt(document.getElementById('p-stock').value) || 0;
-
-    if (!name || isNaN(price)) {
-        alert("Vui lòng nhập tên và giá.");
+    const list = $('management-product-list');
+    if (!list) return;
+    if (products.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-muted);">Chưa có sản phẩm.</div>';
         return;
     }
+    list.innerHTML = products.map(p => `
+        <div class="data-row" style="grid-template-columns:1fr 1fr 1fr 80px 140px;">
+            <span style="font-weight:600;">${p.icon} ${p.name}</span>
+            <span>${p.category}</span>
+            <span>${fmt(p.price)}</span>
+            <span style="color:${p.stock <= 5 ? '#ef4444' : 'inherit'};font-weight:600;">${p.stock}</span>
+            <div style="display:flex;gap:6px;">
+                <button class="btn btn-secondary" style="padding:6px 12px;font-size:13px;"
+                        onclick="editProduct(${p.id})">Sửa</button>
+                <button class="btn btn-secondary" style="padding:6px 12px;font-size:13px;color:#ef4444;"
+                        onclick="deleteProduct(${p.id})">Xóa</button>
+            </div>
+        </div>`).join('');
+}
 
-    const icon = getIconForCategory(category);
+window.showAddProductForm = function() {
+    editingProductId = null;
+    clearForm();
+    const btn = $('save-product-btn');
+    if (btn) btn.textContent = 'Thêm sản phẩm';
+    const fc = $('product-form-container');
+    if (fc) { fc.style.display = 'block'; fc.scrollIntoView({ behavior: 'smooth' }); }
+};
 
-    if (editingProductId) {
+window.hideProductForm = function() {
+    const fc = $('product-form-container');
+    if (fc) fc.style.display = 'none';
+    editingProductId = null;
+};
+
+window.saveProduct = function() {
+    const name  = ($('p-name')     || {}).value?.trim();
+    const price = parseFloat(($('p-price') || {}).value);
+    const cat   = ($('p-category') || {}).value;
+    const stock = parseInt(($('p-stock')   || {}).value) || 0;
+
+    if (!name) { alert('Vui lòng nhập tên sản phẩm.'); return; }
+    if (isNaN(price)) { alert('Vui lòng nhập giá hợp lệ.'); return; }
+
+    const icon = getIconForCategory(cat);
+
+    if (editingProductId !== null) {
         const idx = products.findIndex(p => p.id === editingProductId);
-        products[idx] = { ...products[idx], name, price, category, stock, icon };
+        if (idx >= 0) products[idx] = { ...products[idx], name, price, category: cat, stock, icon };
     } else {
-        products.push({ id: Date.now(), name, price, category, image: '', stock, icon });
+        products.push({ id: Date.now(), name, price, category: cat, stock, icon, image: '' });
     }
 
-    localStorage.setItem('pos_products_v3', JSON.stringify(products));
+    saveProducts();
     hideProductForm();
     renderManagementGrid();
     renderProducts();
 };
 
-window.editProduct = (id) => {
-    const p = products.find(p => p.id === id);
+window.editProduct = function(id) {
+    const p = products.find(x => x.id === id);
     if (!p) return;
     editingProductId = id;
-    document.getElementById('p-name').value = p.name;
-    document.getElementById('p-price').value = p.price;
-    document.getElementById('p-category').value = p.category;
-    document.getElementById('p-stock').value = p.stock;
-
-    document.getElementById('product-form-container').style.display = 'block';
-    // Scroll to form
-    document.getElementById('product-form-container').scrollIntoView({ behavior: 'smooth' });
-    document.getElementById('save-product-btn').textContent = 'Cập nhật';
+    const setVal = (elId, v) => { const el = $(elId); if (el) el.value = v; };
+    setVal('p-name',     p.name);
+    setVal('p-price',    p.price);
+    setVal('p-category', p.category);
+    setVal('p-stock',    p.stock);
+    const btn = $('save-product-btn');
+    if (btn) btn.textContent = 'Cập nhật';
+    const fc = $('product-form-container');
+    if (fc) { fc.style.display = 'block'; fc.scrollIntoView({ behavior: 'smooth' }); }
 };
 
-window.deleteProduct = (id) => {
-    if (confirm("Chắc chắn xóa?")) {
-        products = products.filter(p => p.id !== id);
-        localStorage.setItem('pos_products_v3', JSON.stringify(products));
-        renderManagementGrid();
-        renderProducts();
-    }
+window.deleteProduct = function(id) {
+    if (!confirm('Xác nhận xóa sản phẩm này?')) return;
+    products = products.filter(p => p.id !== id);
+    cart = cart.filter(i => i.id !== id);
+    saveProducts();
+    renderManagementGrid();
+    renderProducts();
+    renderCart();
 };
 
 function clearForm() {
-    document.getElementById('p-name').value = '';
-    document.getElementById('p-price').value = '';
-    document.getElementById('p-category').value = 'Trà';
-    document.getElementById('p-stock').value = '100';
+    ['p-name','p-price','p-stock'].forEach(id => { const el = $(id); if (el) el.value = ''; });
+    const cat = $('p-category'); if (cat) cat.value = 'Trà';
+    const stock = $('p-stock'); if (stock) stock.value = '100';
 }
 
-// Global actions exposed to HTML
-window.updateQuantity = updateQuantity;
-
-const clearCartBtn = document.getElementById('clear-cart');
-if (clearCartBtn) {
-    clearCartBtn.addEventListener('click', () => {
-        cart = [];
-        renderCart();
-    });
-}
-
-// Init
-renderCategoryTabs();
-renderProducts();
-updateStats();
-
-// --- Menu Display Logic ---
-const CATEGORY_PILL_COLORS = {
-    'Tra':         { color: 'green',  en: 'Tea' },
-    'Tra sua':     { color: 'teal',   en: 'Milk Tea' },
-    'Nuoc ngot':   { color: 'blue',   en: 'Soft Drinks' },
-    'Do co con':   { color: 'red',    en: 'Alcohol' },
-    'Thuoc la':    { color: 'purple', en: 'Cigarettes' },
-    'Do an':       { color: 'orange', en: 'Snacks' },
-    'Huong duong': { color: 'yellow', en: 'Sunflower Seeds' },
-    'Topping':     { color: 'pink',   en: 'Toppings' }
-};
-
-const CATEGORY_COLORS_VN = {
-    'Tr\u00e0':          'green',
-    'Tr\u00e0 s\u1eefa':     'teal',
-    'N\u01b0\u1edbc ng\u1edt':   'blue',
-    '\u0110\u1ed3 c\u00f3 c\u1ed3n':   'red',
-    'Thu\u1ed1c l\u00e1':    'purple',
-    '\u0110\u1ed3 \u0103n':      'orange',
-    'H\u01b0\u1edbng d\u01b0\u01a1ng': 'yellow',
-    'Topping':      'pink'
-};
-const CATEGORY_EN = {
-    'Tr\u00e0':          'Tea',
-    'Tr\u00e0 s\u1eefa':     'Milk Tea',
-    'N\u01b0\u1edbc ng\u1edt':   'Soft Drinks',
-    '\u0110\u1ed3 c\u00f3 c\u1ed3n':   'Alcohol',
-    'Thu\u1ed1c l\u00e1':    'Cigarettes',
-    '\u0110\u1ed3 \u0103n':      'Snacks',
-    'H\u01b0\u1edbng d\u01b0\u01a1ng': 'Sunflower Seeds',
-    'Topping':      'Toppings'
-};
-
+// ── Menu Display ─────────────────────────────────────────────
 function renderMenu() {
-    const container = document.getElementById('menu-categories-list');
+    const container = $('menu-categories-list');
     if (!container) return;
 
-    // Group products by category preserving order
     const grouped = {};
+    CATEGORIES.filter(c => c !== 'Tất cả').forEach(c => { grouped[c] = []; });
     products.forEach(p => {
         if (!grouped[p.category]) grouped[p.category] = [];
         grouped[p.category].push(p);
     });
 
-    container.innerHTML = Object.entries(grouped).map(([cat, items]) => {
-        const pillColor = CATEGORY_COLORS_VN[cat] || 'orange';
-        const pillEn = CATEGORY_EN[cat] || cat;
-        const icon = getIconForCategory(cat);
-
-        const rows = items.map(item => {
-            const priceStr = item.price > 0
-                ? `${parseFloat(item.price).toLocaleString('vi-VN')} \u0111`
-                : 'Li\u00ean h\u1ec7';
-            const priceClass = item.price > 0 ? '' : 'free';
-            return `<div class="menu-item-row">
-                <span class="menu-item-icon">${item.icon}</span>
-                <span class="menu-item-name">${item.name}</span>
-                <span class="menu-item-dots"></span>
-                <span class="menu-item-price ${priceClass}">${priceStr}</span>
+    container.innerHTML = Object.entries(grouped)
+        .filter(([, items]) => items.length > 0)
+        .map(([cat, items]) => {
+            const meta = CATEGORY_META[cat] || { color: 'orange', en: cat, icon: '📦' };
+            const rows = items.map(item => {
+                const priceStr  = item.price > 0 ? fmt(item.price) : 'Liên hệ';
+                const priceClass = item.price > 0 ? '' : 'free';
+                return `<div class="menu-item-row">
+                    <span class="menu-item-icon">${item.icon}</span>
+                    <span class="menu-item-name">${item.name}</span>
+                    <span class="menu-item-dots"></span>
+                    <span class="menu-item-price ${priceClass}">${priceStr}</span>
+                </div>`;
+            }).join('');
+            return `<div class="menu-category-block">
+                <div class="menu-category-header">
+                    <span class="menu-category-icon">${meta.icon}</span>
+                    <span class="menu-category-pill ${meta.color}">${cat} / ${meta.en}</span>
+                </div>
+                ${rows}
             </div>`;
         }).join('');
-
-        return `<div class="menu-category-block">
-            <div class="menu-category-header">
-                <span class="menu-category-icon">${icon}</span>
-                <span class="menu-category-pill ${pillColor}">${cat} / ${pillEn}</span>
-            </div>
-            ${rows}
-        </div>`;
-    }).join('');
 }
+
+// ── Utility ──────────────────────────────────────────────────
+function fmt(amount) {
+    return Number(amount || 0).toLocaleString('vi-VN') + ' đ';
+}
+
+// ── Init ─────────────────────────────────────────────────────
+renderCategoryTabs();
+renderProducts();
+renderCart();
+updateStats();
