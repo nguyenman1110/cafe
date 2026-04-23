@@ -487,3 +487,165 @@ body {
   font-weight: 700;
   color: #9ca3af;
 }
+
+/* ================================================
+   MENU VIEW — Poster Style
+================================================ */
+.menu-view {
+  background: linear-gradient(160deg, #fef4ec 0%, #fffbf5 40%, #eef6ee 100%);
+  padding: 0 !important;
+  overflow-y: auto !important;
+}
+
+.menu-view.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-header {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 40px 0;
+}
+
+.menu-logo {
+  font-size: 15px;
+  font-weight: 700;
+  color: #5c4033;
+  letter-spacing: 0.5px;
+}
+
+.menu-badge {
+  background: #f97316;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.menu-title {
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: 12px;
+  color: #2d2118;
+  margin: 8px 0 0;
+  text-align: center;
+  line-height: 1;
+}
+
+.menu-slogan {
+  font-style: italic;
+  color: #9c7b6a;
+  font-size: 15px;
+  margin: 6px 0 20px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.menu-deco-line {
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, #f97316, #10b981);
+  border-radius: 4px;
+  margin: 0 auto 32px;
+}
+
+.menu-categories {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-category-block {
+  background: rgba(255,255,255,0.8);
+  border-radius: 20px;
+  padding: 20px 28px 22px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(255,255,255,0.95);
+}
+
+.menu-category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.menu-category-pill {
+  padding: 5px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: white;
+}
+
+.menu-category-pill.orange  { background: linear-gradient(135deg,#f97316,#fb923c); }
+.menu-category-pill.green   { background: linear-gradient(135deg,#10b981,#34d399); }
+.menu-category-pill.blue    { background: linear-gradient(135deg,#3b82f6,#60a5fa); }
+.menu-category-pill.red     { background: linear-gradient(135deg,#ef4444,#f87171); }
+.menu-category-pill.purple  { background: linear-gradient(135deg,#8b5cf6,#a78bfa); }
+.menu-category-pill.yellow  { background: linear-gradient(135deg,#f59e0b,#fbbf24); }
+.menu-category-pill.teal    { background: linear-gradient(135deg,#14b8a6,#2dd4bf); }
+.menu-category-pill.pink    { background: linear-gradient(135deg,#ec4899,#f472b6); }
+
+.menu-category-icon { font-size: 22px; }
+
+.menu-item-row {
+  display: flex;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e8dfd9;
+  gap: 6px;
+}
+
+.menu-item-row:last-child { border-bottom: none; }
+
+.menu-item-icon { font-size: 15px; width: 22px; flex-shrink: 0; }
+
+.menu-item-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2d2118;
+}
+
+.menu-item-dots {
+  flex: 1;
+  border-bottom: 2px dotted #d4c4ba;
+  margin: 0 6px;
+  min-width: 30px;
+  position: relative;
+  top: -3px;
+}
+
+.menu-item-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: #f97316;
+  white-space: nowrap;
+}
+
+.menu-item-price.free {
+  color: #10b981;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.menu-footer {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  padding: 24px 40px 40px;
+  color: #9c7b6a;
+  font-size: 14px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}

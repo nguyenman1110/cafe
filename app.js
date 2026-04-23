@@ -82,6 +82,7 @@ window.switchTab = (tabId) => {
         renderCategoryTabs();
         renderProducts();
     }
+    if (tabId === 'menu') renderMenu();
 };
 
 // --- POS Logic ---
@@ -393,3 +394,75 @@ if (clearCartBtn) {
 renderCategoryTabs();
 renderProducts();
 updateStats();
+
+// --- Menu Display Logic ---
+const CATEGORY_PILL_COLORS = {
+    'Tra':         { color: 'green',  en: 'Tea' },
+    'Tra sua':     { color: 'teal',   en: 'Milk Tea' },
+    'Nuoc ngot':   { color: 'blue',   en: 'Soft Drinks' },
+    'Do co con':   { color: 'red',    en: 'Alcohol' },
+    'Thuoc la':    { color: 'purple', en: 'Cigarettes' },
+    'Do an':       { color: 'orange', en: 'Snacks' },
+    'Huong duong': { color: 'yellow', en: 'Sunflower Seeds' },
+    'Topping':     { color: 'pink',   en: 'Toppings' }
+};
+
+const CATEGORY_COLORS_VN = {
+    'Tr\u00e0':          'green',
+    'Tr\u00e0 s\u1eefa':     'teal',
+    'N\u01b0\u1edbc ng\u1edt':   'blue',
+    '\u0110\u1ed3 c\u00f3 c\u1ed3n':   'red',
+    'Thu\u1ed1c l\u00e1':    'purple',
+    '\u0110\u1ed3 \u0103n':      'orange',
+    'H\u01b0\u1edbng d\u01b0\u01a1ng': 'yellow',
+    'Topping':      'pink'
+};
+const CATEGORY_EN = {
+    'Tr\u00e0':          'Tea',
+    'Tr\u00e0 s\u1eefa':     'Milk Tea',
+    'N\u01b0\u1edbc ng\u1edt':   'Soft Drinks',
+    '\u0110\u1ed3 c\u00f3 c\u1ed3n':   'Alcohol',
+    'Thu\u1ed1c l\u00e1':    'Cigarettes',
+    '\u0110\u1ed3 \u0103n':      'Snacks',
+    'H\u01b0\u1edbng d\u01b0\u01a1ng': 'Sunflower Seeds',
+    'Topping':      'Toppings'
+};
+
+function renderMenu() {
+    const container = document.getElementById('menu-categories-list');
+    if (!container) return;
+
+    // Group products by category preserving order
+    const grouped = {};
+    products.forEach(p => {
+        if (!grouped[p.category]) grouped[p.category] = [];
+        grouped[p.category].push(p);
+    });
+
+    container.innerHTML = Object.entries(grouped).map(([cat, items]) => {
+        const pillColor = CATEGORY_COLORS_VN[cat] || 'orange';
+        const pillEn = CATEGORY_EN[cat] || cat;
+        const icon = getIconForCategory(cat);
+
+        const rows = items.map(item => {
+            const priceStr = item.price > 0
+                ? `${parseFloat(item.price).toLocaleString('vi-VN')} \u0111`
+                : 'Li\u00ean h\u1ec7';
+            const priceClass = item.price > 0 ? '' : 'free';
+            return `<div class="menu-item-row">
+                <span class="menu-item-icon">${item.icon}</span>
+                <span class="menu-item-name">${item.name}</span>
+                <span class="menu-item-dots"></span>
+                <span class="menu-item-price ${priceClass}">${priceStr}</span>
+            </div>`;
+        }).join('');
+
+        return `<div class="menu-category-block">
+            <div class="menu-category-header">
+                <span class="menu-category-icon">${icon}</span>
+                <span class="menu-category-pill ${pillColor}">${cat} / ${pillEn}</span>
+            </div>
+            ${rows}
+        </div>`;
+    }).join('');
+}
