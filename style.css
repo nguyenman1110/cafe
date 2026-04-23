@@ -188,29 +188,34 @@ body {
   overflow-y:auto;
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+  grid-auto-rows: max-content;
   gap:12px;
-  align-content:start;
+  align-items:start;
   -webkit-overflow-scrolling:touch;
 }
 
 .product-card {
   background:var(--bg-card);
   border-radius:14px;
-  overflow:hidden;
+  /* NO overflow:hidden here — it was hiding the product name */
   box-shadow:var(--shadow-sm);
   cursor:pointer;
   border:2px solid transparent;
   transition:all .18s cubic-bezier(.4,0,.2,1);
+  display:flex;
+  flex-direction:column;
 }
 .product-card:hover  { transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:var(--primary); }
 .product-card:active { transform:scale(.98); }
 
-.product-image { width:100%; height:110px; object-fit:cover; }
+.product-image { width:100%; height:110px; object-fit:cover; border-radius:12px 12px 0 0; }
 .product-image-placeholder {
   width:100%; height:110px;
   background:linear-gradient(135deg,#f3f4f6,#e5e7eb);
   display:flex; align-items:center; justify-content:center;
   font-size:40px;
+  border-radius:12px 12px 0 0;
+  flex-shrink:0;
 }
 .product-info    { padding:10px 12px; }
 .product-name    { font-weight:700; font-size:14px; line-height:1.3; margin-bottom:6px; }
