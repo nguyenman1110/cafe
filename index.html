@@ -40,11 +40,7 @@
                 
                 <div class="stats-container">
                     <div class="stat-card">
-                        <span class="stat-label">Doanh thu</span>
-                        <span class="stat-value" id="revenue-val">0 đ</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Đơn hàng</span>
+                        <span class="stat-label">Tổng Đơn Hàng Hôm Nay</span>
                         <span class="stat-value" id="order-count">0</span>
                     </div>
                 </div>
@@ -96,9 +92,17 @@
 
         <!-- History View -->
         <div id="view-history" class="tab-view">
-            <div class="view-header">
-                <h1 class="view-title">Lịch sử giao dịch</h1>
-                <p class="view-subtitle">Xem lại các hóa đơn và doanh thu.</p>
+            <div class="view-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h1 class="view-title">Lịch sử giao dịch</h1>
+                    <p class="view-subtitle">Xem lại các hóa đơn và trạng thái bán hàng.</p>
+                </div>
+                <!-- Box Total Revenue -->
+                <div style="background: var(--bg-card); padding: 16px 24px; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-sm); min-width: 250px; text-align: right;">
+                    <div style="font-size: 14px; color: var(--text-muted); font-weight: 600; margin-bottom: 8px;">TỔNG DOANH THU</div>
+                    <button id="revenue-unlock-btn" class="btn btn-primary" onclick="requestRevenuePassword()">Hiển thị doanh thu</button>
+                    <div id="history-revenue-val" style="display: none; font-size: 28px; font-weight: 800; color: var(--primary);">0 đ</div>
+                </div>
             </div>
             
             <div class="data-card">

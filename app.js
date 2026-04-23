@@ -65,7 +65,7 @@ const cartItemsContainer = document.getElementById('cart-items-container');
 const cartTotalElement = document.getElementById('cart-total');
 const checkoutBtn = document.getElementById('checkout-btn');
 const emptyMsg = document.getElementById('empty-cart-msg');
-const revenueVal = document.getElementById('revenue-val');
+const historyRevenueVal = document.getElementById('history-revenue-val');
 const orderCountVal = document.getElementById('order-count');
 
 // Navigation / Tab Switching
@@ -234,6 +234,7 @@ window.confirmCheckout = () => {
         cart = [];
         renderCart();
         renderProducts();
+        renderManagementGrid(); // Bổ sung cập nhật lưới quản lý
         updateStats();
         checkoutBtn.innerHTML = '<span>Thanh toán</span>';
     }, 1000);
@@ -244,11 +245,25 @@ function updateStats() {
     const todaysOrders = transactions.filter(t => t.timestamp.includes(today));
     const revenue = todaysOrders.reduce((s, o) => s + o.total, 0);
 
-    revenueVal.textContent = `${revenue.toLocaleString('vi-VN')} đ`;
-    orderCountVal.textContent = todaysOrders.length;
+    if (historyRevenueVal) {
+        historyRevenueVal.textContent = `${revenue.toLocaleString('vi-VN')} đ`;
+    }
+    if (orderCountVal) {
+        orderCountVal.textContent = todaysOrders.length;
+    }
 }
 
 // --- History Logic ---
+window.requestRevenuePassword = () => {
+    const pwd = prompt("Vui lòng nhập mật khẩu để xem doanh thu:");
+    if (pwd === "man123") {
+        document.getElementById('revenue-unlock-btn').style.display = 'none';
+        document.getElementById('history-revenue-val').style.display = 'block';
+    } else if (pwd !== null) {
+        alert("Mật khẩu không đúng!");
+    }
+};
+
 function renderHistory() {
     const historyList = document.getElementById('history-list');
     historyList.innerHTML = transactions.slice().reverse().map(t => `
