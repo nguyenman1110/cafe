@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POS iPad</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+  height: 100vh;
+}
+
+.left {
+  width: 50%;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.right {
+  width: 50%;
+  background: #f5f5f5;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  padding: 15px;
+  font-size: 18px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 10px;
+}
+
+.product {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.cart {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.item {
+  background: white;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.bottom {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.tab {
+  display: flex;
+}
+
+.tab button {
+  flex: 1;
+  background: #ddd;
+}
+
+.active {
+  background: #333;
+  color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="left">
+  <div class="tab">
+    <button onclick="showTab('pos')" class="active">POS</button>
+    <button onclick="showTab('history')">History</button>
+    <button onclick="showTab('product')">Product</button>
+  </div>
+
+  <div id="posTab"></div>
+  <div id="historyTab" style="display:none"></div>
+  <div id="productTab" style="display:none"></div>
+</div>
+
+<div class="right">
+  <h2>Giỏ hàng</h2>
+  <div class="cart" id="cart"></div>
+
+  <div class="bottom">
+    <h3>Tổng: <span id="total">0</span> đ</h3>
+    <button style="background:green;color:white" onclick="checkout()">Thanh toán</button>
+    <button onclick="clearCart()">Xóa giỏ</button>
+  </div>
+</div>
+
+<script>
+let cart = [];
+let products = JSON.parse(localStorage.getItem('products')) || [
+  {name: "Trà chanh", price: 20000},
+  {name: "Trà sữa", price: 30000}
+];
+
+function saveProducts() {
+  localStorage.setItem('products', JSON.stringify(products));
+}
+
+function renderProducts() {
+  let html = "<h2>Sản phẩm</h2>";
+  products.forEach((p, i) => {
+    html += `
+      <div class="product">
+        ${p.name} - ${p.price}
+        <button onclick="addItem('${p.name}', ${p.price})">+</button>
+      </div>
+    `;
+  });
+  document.getElementById('posTab').innerHTML = html;
+}
+
+function addItem(name, price) {
+  cart.push({name, price});
+  renderCart();
+}
+
+function renderCart() {
+  let html = "";
+  let total = 0;
+  cart.forEach(item => {
+    html += `<div class="item">${item.name} - ${item.price}</div>`;
+    total += item.price;
+  });
+  document.getElementById('cart').innerHTML = html;
+  document.getElementById('total').innerText = total;
+}
+
+function checkout() {
+  if (cart.length === 0) return;
+
+  let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+  let total = cart.reduce((s,i)=>s+i.price,0);
+
+  transactions.push({
+    time: new Date().toLocaleString(),
+    items: cart,
+    total: total
+  });
+
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+
+  cart = [];
+  renderCart();
+  alert("Đã thanh toán!");
+}
+
+function clearCart() {
+  cart = [];
+  renderCart();
+}
+
+function renderHistory() {
+  let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+  let today = new Date().toLocaleDateString();
+  let revenue = 0;
+
+  let html = "<h2>Lịch sử</h2>";
+
+  transactions.forEach(t => {
+    if (t.time.includes(today)) revenue += t.total;
+    html += `<div class="item">${t.time} - ${t.total} đ</div>`;
+  });
+
+  html += `<h3>Doanh thu hôm nay: ${revenue} đ</h3>`;
+
+  document.getElementById('historyTab').innerHTML = html;
+}
+
+function renderProductManager() {
+  let html = `
+    <h2>Quản lý sản phẩm</h2>
+    <input id="name" placeholder="Tên">
+    <input id="price" placeholder="Giá">
+    <button onclick="addProduct()">Thêm</button>
+  `;
+
+  products.forEach((p, i) => {
+    html += `
+      <div class="item">
+        ${p.name} - ${p.price}
+        <button onclick="deleteProduct(${i})">X</button>
+      </div>
+    `;
+  });
+
+  document.getElementById('productTab').innerHTML = html;
+}
+
+function addProduct() {
+  let name = document.getElementById('name').value;
+  let price = parseInt(document.getElementById('price').value);
+
+  if (!name || !price) return;
+
+  products.push({name, price});
+  saveProducts();
+  renderProductManager();
+  renderProducts();
+}
+
+function deleteProduct(i) {
+  products.splice(i,1);
+  saveProducts();
+  renderProductManager();
+  renderProducts();
+}
+
+function showTab(tab) {
+  document.getElementById('posTab').style.display = "none";
+  document.getElementById('historyTab').style.display = "none";
+  document.getElementById('productTab').style.display = "none";
+
+  document.getElementById(tab + "Tab").style.display = "block";
+
+  if (tab === "history") renderHistory();
+  if (tab === "product") renderProductManager();
+}
+
+renderProducts();
+renderCart();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+</body>
+</html>
