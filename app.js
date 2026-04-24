@@ -443,10 +443,8 @@ function updatePayMethodUI() {
 }
 
 function updateQRCode(amount) {
-    // VietQR URL format
-    const amountCents = Math.round(amount);
-    const memo = encodeURIComponent(`Thanh toan Ca phe Goc Da`);
-    const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.png?amount=${amountCents}&addInfo=${memo}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
+    // Sử dụng mã QR Techcombank tĩnh
+    const qrUrl = `./assets/qr_techcombank.png`;
     const img = $('qr-code-img');
     if (img) img.src = qrUrl;
 }
