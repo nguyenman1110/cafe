@@ -235,7 +235,7 @@ body {
   font-size:40px; border-radius:12px 12px 0 0; flex-shrink:0;
 }
 .product-info    { padding:10px 12px; }
-.product-name    { font-weight:700; font-size:14px; line-height:1.3; margin-bottom:6px; }
+.product-name    { font-weight:700; font-size:17px; line-height:1.3; margin-bottom:6px; }
 .product-price   { color:var(--primary); font-weight:700; font-size:13px; }
 
 /* ── Cart Panel ──────────────────────────────────────────── */
@@ -253,7 +253,7 @@ body {
 .cart-item { display:flex; gap:10px; padding:10px 0; border-bottom:1px solid var(--bg-main); }
 .cart-item:last-child  { border-bottom:none; }
 .cart-item-details     { flex:1; min-width:0; }
-.cart-item-name        { font-weight:700; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cart-item-name        { font-weight:700; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .cart-item-price       { font-size:12px; color:var(--text-muted); margin-top:2px; }
 .quantity-control      { display:flex; align-items:center; gap:10px; margin-top:6px; }
 .qty-btn {
@@ -594,17 +594,17 @@ body {
   flex-shrink:0; margin-bottom:5px; padding-bottom:6px;
   border-bottom:2.5px solid #c41e3a;
 }
-.menu-logo { font-size:13px; font-weight:900; color:#c41e3a; letter-spacing:.5px; }
+.menu-logo { font-size:16px; font-weight:900; color:#c41e3a; letter-spacing:.5px; }
 .menu-badge {
   background:linear-gradient(135deg,#c41e3a,#8b0000);
   color:#ffd700; padding:4px 14px; border-radius:20px;
-  font-size:11px; font-weight:800; letter-spacing:.3px;
+  font-size:14px; font-weight:800; letter-spacing:.3px;
   box-shadow:0 2px 10px rgba(196,30,58,.35);
   animation:floatUp 3s ease-in-out infinite;
 }
 .menu-title-block { text-align:center; flex-shrink:0; margin-bottom:7px; }
 .menu-title {
-  font-size:42px; font-weight:900; letter-spacing:18px;
+  font-size:64px; font-weight:900; letter-spacing:18px;
   color:#c41e3a !important; -webkit-text-fill-color:#c41e3a !important;
   background:none !important; filter:none !important;
   text-shadow:1px 1px 0 rgba(196,30,58,.2), 0 0 24px rgba(196,30,58,.12);
@@ -612,7 +612,7 @@ body {
 }
 .menu-subtitle-line { display:flex; align-items:center; justify-content:center; gap:10px; margin-top:4px; }
 .menu-subtitle-deco { flex:1; height:1px; max-width:120px; background:linear-gradient(90deg,transparent,#c41e3a,#d4a017,transparent); }
-.menu-slogan { font-size:11px; font-style:italic; color:#8b0000; white-space:nowrap; letter-spacing:.3px; }
+.menu-slogan { font-size:15px; font-style:italic; color:#8b0000; white-space:nowrap; letter-spacing:.3px; }
 .menu-categories { flex:1; min-height:0; column-count:3; column-gap:12px; overflow:hidden; }
 .menu-category-block {
   break-inside:avoid; display:inline-block; width:100%;
@@ -633,8 +633,8 @@ body {
 .menu-category-block:nth-child(7) { border-left-color:#eab308; }
 .menu-category-block:nth-child(8) { border-left-color:#ec4899; }
 .menu-category-header { display:flex; align-items:center; gap:6px; margin-bottom:6px; padding-bottom:4px; border-bottom:1px dashed rgba(196,30,58,.15); flex-shrink:0; }
-.menu-category-icon { font-size:14px; line-height:1; }
-.menu-category-pill { font-size:11.5px; font-weight:900; text-transform:uppercase; letter-spacing:.8px; background:none !important; padding:0 !important; color:#c41e3a; }
+.menu-category-icon { font-size:18px; line-height:1; }
+.menu-category-pill { font-size:15px; font-weight:900; text-transform:uppercase; letter-spacing:.8px; background:none !important; padding:0 !important; color:#c41e3a; }
 .menu-category-block:nth-child(1) .menu-category-pill { color:#c41e3a; }
 .menu-category-block:nth-child(2) .menu-category-pill { color:#0d9488; }
 .menu-category-block:nth-child(3) .menu-category-pill { color:#2563eb; }
@@ -650,11 +650,11 @@ body {
   border-bottom:1px dashed rgba(0,0,0,.06); gap:5px;
 }
 .menu-item-row:last-child { border-bottom:none; }
-.menu-item-icon  { font-size:12px; line-height:1; text-align:center; }
-.menu-item-name  { font-size:11.5px; font-weight:600; color:#1a0800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; line-height:1.35; }
-.menu-item-price { font-size:11.5px; font-weight:800; color:#c41e3a; white-space:nowrap; }
-.menu-item-price.free { color:#059669; font-style:italic; font-size:10.5px; font-weight:700; }
-.menu-footer    { text-align:center; padding:6px 0 2px; margin-top:4px; color:#8b0000; font-size:10.5px; font-style:italic; letter-spacing:.4px; border-top:1px solid rgba(196,30,58,.15); flex-shrink:0; }
+.menu-item-icon  { font-size:16px; line-height:1; text-align:center; }
+.menu-item-name  { font-size:15px; font-weight:600; color:#1a0800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; line-height:1.35; }
+.menu-item-price { font-size:15px; font-weight:800; color:#c41e3a; white-space:nowrap; }
+.menu-item-price.free { color:#059669; font-style:italic; font-size:14px; font-weight:700; }
+.menu-footer    { text-align:center; padding:6px 0 2px; margin-top:4px; color:#8b0000; font-size:13px; font-style:italic; letter-spacing:.4px; border-top:1px solid rgba(196,30,58,.15); flex-shrink:0; }
 
 /* ══════════════════════════════════════════════════════════
    TABLE BAR — Rename Button
