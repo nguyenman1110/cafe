@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,24 +12,47 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
+
 <body>
     <!-- Sidebar Navigation -->
     <nav class="sidebar">
         <div class="nav-item active" id="nav-pos" onclick="switchTab('pos')" title="Point of Sale">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+            </svg>
         </div>
         <div class="nav-item" id="nav-history" onclick="switchTab('history')" title="Lịch sử">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+            </svg>
         </div>
         <div class="nav-item" id="nav-products" onclick="switchTab('products')" title="Quản lý sản phẩm">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+            </svg>
         </div>
         <div class="nav-item" id="nav-menu" onclick="switchTab('menu')" title="Hiện Menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16M4 12h16M4 18h10" />
+            </svg>
         </div>
         <div style="margin-top: auto;">
             <div class="nav-item" title="Cài đặt">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
             </div>
         </div>
     </nav>
@@ -39,7 +63,8 @@
         <div id="view-pos" class="tab-view active">
             <header class="header">
                 <div class="brand">
-                    <h1 style="font-size:22px;font-weight:800;color:var(--primary);">Cà phê <span style="color:var(--text-main);">Gốc Đa</span></h1>
+                    <h1 style="font-size:22px;font-weight:800;color:var(--primary);">Cà phê <span
+                            style="color:var(--text-main);">Gốc Đa</span></h1>
                 </div>
                 <div class="stats-container">
                     <div class="stat-card">
@@ -54,12 +79,27 @@
             </header>
 
             <main class="main-content">
-                <!-- Left: Table bar + Category tabs + Product grid -->
+                <!-- Left: Table bar + Search + Category tabs + Product grid -->
                 <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;">
 
                     <!-- Table Selection Bar -->
                     <div class="table-bar" id="table-bar">
                         <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Product Search Bar -->
+                    <div class="search-bar-wrap">
+                        <div class="search-input-wrapper">
+                            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                            <input type="text" id="product-search" class="search-input"
+                                placeholder="Tìm sản phẩm theo tên..." oninput="onSearchInput()" autocomplete="off">
+                            <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()"
+                                style="display:none;">✕</button>
+                        </div>
                     </div>
 
                     <!-- Category Tabs -->
@@ -77,14 +117,19 @@
                 <aside class="cart-panel">
                     <div class="cart-header">
                         <div>
-                            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:600;">Đang phục vụ</div>
+                            <div
+                                style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:600;">
+                                Đang phục vụ</div>
                             <h2 id="cart-table-name" style="font-size:20px;font-weight:800;margin-top:2px;">Bàn 1</h2>
                         </div>
-                        <button id="clear-cart" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-weight:600;font-size:13px;">Xóa tất cả</button>
+                        <button id="clear-cart"
+                            style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-weight:600;font-size:13px;">Xóa
+                            tất cả</button>
                     </div>
 
                     <div class="cart-items" id="cart-items-container">
-                        <div id="empty-cart-msg" style="text-align:center;color:var(--text-muted);margin-top:48px;padding:0 20px;">
+                        <div id="empty-cart-msg"
+                            style="text-align:center;color:var(--text-muted);margin-top:48px;padding:0 20px;">
                             <div style="font-size:40px;margin-bottom:12px;">🛒</div>
                             <p style="font-weight:600;">Bàn chưa có món</p>
                             <p style="font-size:13px;margin-top:4px;">Chọn sản phẩm từ lưới bên trái</p>
@@ -98,7 +143,10 @@
                         </div>
                         <button class="checkout-btn" id="checkout-btn">
                             <span>Thanh toán</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
                         </button>
                     </div>
                 </aside>
@@ -107,27 +155,100 @@
 
         <!-- ═══ HISTORY VIEW ════════════════════════════════ -->
         <div id="view-history" class="tab-view">
-            <div class="view-header" style="display:flex;justify-content:space-between;align-items:flex-end;">
+
+            <!-- Header -->
+            <div class="view-header"
+                style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;">
                 <div>
                     <h1 class="view-title">Lịch sử giao dịch</h1>
-                    <p class="view-subtitle">Xem lại các hóa đơn và trạng thái bán hàng.</p>
-                    <p style="margin-top:8px;font-size:18px;font-weight:700;">Tổng đơn hôm nay: <span id="history-order-count" style="color:var(--primary);">0</span></p>
+                    <p class="view-subtitle">Thống kê doanh thu và phân tích bán hàng.</p>
                 </div>
-                <div style="background:var(--bg-card);padding:16px 24px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow-sm);min-width:240px;text-align:right;">
-                    <div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:600;margin-bottom:8px;">Tổng doanh thu</div>
-                    <button id="revenue-unlock-btn" class="btn btn-primary" onclick="requestRevenuePassword()">Hiển thị doanh thu</button>
-                    <div id="history-revenue-val" style="display:none;font-size:28px;font-weight:800;color:var(--primary);">0 đ</div>
+                <div style="display:flex;gap:12px;align-items:center;">
+                    <!-- Date filter -->
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <label style="font-size:13px;font-weight:600;color:var(--text-muted);">Ngày:</label>
+                        <input type="date" id="history-date-filter" class="date-filter-input"
+                            onchange="renderHistory()">
+                    </div>
+                    <!-- Revenue unlock -->
+                    <div class="revenue-card">
+                        <div class="revenue-card-label">Doanh thu</div>
+                        <button id="revenue-unlock-btn" class="btn btn-primary" style="font-size:13px;padding:8px 16px;"
+                            onclick="requestRevenuePassword()">🔒 Hiển thị</button>
+                        <div id="revenue-val-wrap" style="display:none;align-items:center;gap:8px;">
+                            <div id="history-revenue-val" style="font-size:26px;font-weight:800;color:var(--primary);">0
+                                đ</div>
+                            <button onclick="lockRevenue()" title="Ẩn doanh thu"
+                                style="background:none;border:1px solid var(--border);border-radius:8px;padding:5px 8px;cursor:pointer;color:var(--text-muted);font-size:14px;line-height:1;transition:all .2s;"
+                                onmouseover="this.style.background='#f3f4f6'"
+                                onmouseout="this.style.background='none'">🔒</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="data-card">
-                <div class="data-row data-header">
-                    <span>Thời gian</span>
-                    <span>Bàn</span>
-                    <span>Số món</span>
-                    <span>Tổng tiền</span>
+
+            <!-- Summary KPI cards (hidden until unlocked) -->
+            <div id="history-kpi-section" style="display:none;">
+                <div class="kpi-grid">
+                    <div class="kpi-card kpi-orders">
+                        <div class="kpi-icon">🧾</div>
+                        <div class="kpi-label">Tổng đơn</div>
+                        <div class="kpi-value" id="kpi-total-orders">0</div>
+                    </div>
+                    <div class="kpi-card kpi-revenue">
+                        <div class="kpi-icon">💰</div>
+                        <div class="kpi-label">Doanh thu</div>
+                        <div class="kpi-value" id="kpi-revenue">0 đ</div>
+                    </div>
+                    <div class="kpi-card kpi-avg">
+                        <div class="kpi-icon">📊</div>
+                        <div class="kpi-label">TB / đơn</div>
+                        <div class="kpi-value" id="kpi-avg-order">0 đ</div>
+                    </div>
+                    <div class="kpi-card kpi-cash">
+                        <div class="kpi-icon">💵</div>
+                        <div class="kpi-label">Tiền mặt</div>
+                        <div class="kpi-value" id="kpi-cash-count">0 đơn</div>
+                        <div class="kpi-sub" id="kpi-cash-amount">0 đ</div>
+                    </div>
+                    <div class="kpi-card kpi-qr">
+                        <div class="kpi-icon">📱</div>
+                        <div class="kpi-label">Chuyển khoản</div>
+                        <div class="kpi-value" id="kpi-qr-count">0 đơn</div>
+                        <div class="kpi-sub" id="kpi-qr-amount">0 đ</div>
+                    </div>
                 </div>
-                <div id="history-list"></div>
+
+                <!-- Top products -->
+                <div class="history-section-title">🏆 Sản phẩm bán chạy</div>
+                <div class="top-products-grid" id="top-products-grid">
+                    <!-- rendered by JS -->
+                </div>
+
+                <!-- Payment method bar -->
+                <div class="history-section-title">💳 Tỷ lệ phương thức thanh toán</div>
+                <div class="payment-bar-wrap">
+                    <div class="payment-bar" id="payment-bar">
+                        <div class="payment-bar-cash" id="pbar-cash" style="width:50%">Tiền mặt</div>
+                        <div class="payment-bar-qr" id="pbar-qr" style="width:50%">Chuyển khoản</div>
+                    </div>
+                    <div class="payment-bar-legend">
+                        <span class="legend-cash">💵 Tiền mặt</span>
+                        <span class="legend-qr">📱 Chuyển khoản</span>
+                    </div>
+                </div>
             </div>
+
+            <!-- Transaction list -->
+            <div
+                style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;margin-bottom:12px;">
+                <div class="history-section-title" style="margin:0;">📋 Danh sách giao dịch</div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span id="history-order-count" style="font-weight:800;color:var(--primary);font-size:18px;">0</span>
+                    <span style="color:var(--text-muted);font-size:13px;">giao dịch</span>
+                </div>
+            </div>
+            <div id="history-list" class="txn-list"></div>
         </div>
 
         <!-- ═══ PRODUCTS MANAGEMENT VIEW ════════════════════ -->
@@ -168,7 +289,8 @@
                         <input type="number" id="p-stock" placeholder="100">
                     </div>
                     <div style="grid-column:span 2;display:flex;gap:12px;margin-top:8px;">
-                        <button class="btn btn-primary" id="save-product-btn" onclick="saveProduct()">Lưu sản phẩm</button>
+                        <button class="btn btn-primary" id="save-product-btn" onclick="saveProduct()">Lưu sản
+                            phẩm</button>
                         <button class="btn btn-secondary" onclick="hideProductForm()">Hủy</button>
                     </div>
                 </div>
@@ -188,39 +310,153 @@
 
         <!-- ═══ MENU DISPLAY VIEW ════════════════════════════ -->
         <div id="view-menu" class="tab-view menu-view">
-            <div class="menu-header">
-                <div class="menu-logo">☕ Cà phê Gốc Đa</div>
-                <div class="menu-badge">7:00 - 22:00</div>
+            <div class="menu-inner">
+
+                <!-- Header -->
+                <div class="menu-header">
+                    <div class="menu-logo">❤️ Cà phê Gốc Đa</div>
+                    <div class="menu-badge">🌄 Giỗ Tổ Hùng Vương 10/3 AL</div>
+                </div>
+
+                <!-- Title -->
+                <div class="menu-title-block">
+                    <div class="menu-title">MENU</div>
+                    <div class="menu-subtitle-line">
+                        <div class="menu-subtitle-deco"
+                            style="background:linear-gradient(90deg,transparent,rgba(255,215,0,.5));"></div>
+                        <div class="menu-slogan">❤ Hương vị chân thật — Theo truyền thống dân tộc ❤</div>
+                        <div class="menu-subtitle-deco"
+                            style="background:linear-gradient(90deg,rgba(255,215,0,.5),transparent);"></div>
+                    </div>
+                </div>
+
+                <!-- Categories Grid -->
+                <div id="menu-categories-list" class="menu-categories"></div>
+
+                <!-- Footer -->
+                <div class="menu-footer">🌸 Uống cà phê — Nhớ ơn Tổ quốc 🌸</div>
             </div>
-            <h1 class="menu-title">MENU</h1>
-            <p class="menu-slogan">Hương vị chân thật — Tự nhiên thuần khiết</p>
-            <div class="menu-deco-line"></div>
-            <div id="menu-categories-list" class="menu-categories"></div>
-            <div class="menu-footer">✨ Cảm ơn quý khách đã ủng hộ quán ✨</div>
         </div>
 
     </div><!-- end .app-container -->
 
     <!-- ═══ CHECKOUT MODAL ══════════════════════════════════ -->
     <div class="modal-overlay" id="checkout-modal">
-        <div class="modal-content">
-            <div style="font-size:36px;margin-bottom:12px;">🧾</div>
+        <div class="modal-content checkout-modal-content">
+            <div style="font-size:32px;margin-bottom:8px;">🧾</div>
             <h2 class="modal-title" id="checkout-modal-title">Thanh toán Bàn 1</h2>
-            <p class="modal-text" id="checkout-modal-total">Tổng: 0 đ</p>
-            <div class="modal-actions" style="flex-direction:column;gap:12px;">
-                <button class="btn btn-primary" style="width:100%;height:52px;font-size:16px;" onclick="confirmCheckout()">
+
+            <!-- Order summary -->
+            <div id="checkout-items-summary" class="checkout-items-summary"></div>
+
+            <!-- Subtotal -->
+            <div class="checkout-line">
+                <span>Tạm tính</span>
+                <span id="checkout-subtotal">0 đ</span>
+            </div>
+
+            <!-- Discount -->
+            <div class="checkout-discount-row">
+                <label class="checkout-discount-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5" />
+                        <path d="M2 12l10 5 10-5" />
+                    </svg>
+                    Giảm giá (đ)
+                </label>
+                <input type="number" id="checkout-discount" class="discount-input" placeholder="0" min="0"
+                    oninput="updateCheckoutTotal()" value="0">
+            </div>
+
+            <!-- Final total -->
+            <div class="checkout-total-row">
+                <span>Thành tiền</span>
+                <span id="checkout-modal-total" class="checkout-final-amount">0 đ</span>
+            </div>
+
+            <!-- Payment method -->
+            <div class="payment-method-section">
+                <div class="payment-method-label">Phương thức thanh toán</div>
+                <div class="payment-method-btns">
+                    <button class="pay-method-btn active" id="pay-cash-btn" onclick="selectPayMethod('cash')">
+                        <span style="font-size:22px;">💵</span>
+                        <span>Tiền mặt</span>
+                    </button>
+                    <button class="pay-method-btn" id="pay-qr-btn" onclick="selectPayMethod('qr')">
+                        <span style="font-size:22px;">📱</span>
+                        <span>Chuyển khoản</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- QR Code section (hidden by default) -->
+            <div id="qr-section" class="qr-section" style="display:none;">
+                <div class="qr-label">Quét mã để thanh toán</div>
+                <div class="qr-amount-display" id="qr-amount-display">0 đ</div>
+                <div class="qr-code-wrap">
+                    <img id="qr-code-img" src="" alt="QR Code" class="qr-code-img">
+                </div>
+                <div class="qr-note">Quét mã VietQR — MB Bank</div>
+            </div>
+
+            <!-- Actions -->
+            <div class="modal-actions" style="flex-direction:column;gap:10px;margin-top:16px;">
+                <button class="btn btn-primary" style="width:100%;height:52px;font-size:16px;"
+                    onclick="confirmCheckout()">
                     ✓ Xác nhận thanh toán
                 </button>
-                <button class="btn btn-secondary" style="width:100%;height:52px;font-size:16px;" onclick="saveAndSwitch()">
+                <button class="btn btn-secondary" style="width:100%;height:48px;font-size:15px;"
+                    onclick="saveAndSwitch()">
                     📌 Bảo lưu — chuyển bàn khác
                 </button>
-                <button class="btn btn-secondary" style="width:100%;height:44px;" onclick="closeCheckoutModal()">
+                <button class="btn btn-secondary" style="width:100%;height:40px;" onclick="closeCheckoutModal()">
                     Hủy
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- ═══ TRANSACTION DETAIL MODAL ════════════════════════ -->
+    <div class="modal-overlay" id="txn-detail-modal">
+        <div class="modal-content txn-detail-content">
+            <div class="txn-detail-header">
+                <div>
+                    <div class="txn-detail-badge" id="txn-detail-badge">💵 Tiền mặt</div>
+                    <h2 class="txn-detail-title" id="txn-detail-title">Giao dịch</h2>
+                    <div class="txn-detail-meta" id="txn-detail-meta"></div>
+                </div>
+                <button onclick="closeTxnDetail()" class="txn-close-btn">✕</button>
+            </div>
+
+            <!-- Items list -->
+            <div class="txn-detail-section-label">🛒 Sản phẩm đã đặt</div>
+            <div class="txn-detail-items" id="txn-detail-items"></div>
+
+            <!-- Summary -->
+            <div class="txn-detail-summary" id="txn-detail-summary"></div>
+        </div>
+    </div>
+
+    <!-- ═══ RENAME TABLE MODAL ═══════════════════════════════ -->
+    <div class="modal-overlay" id="rename-table-modal">
+        <div class="modal-content" style="max-width:360px;text-align:left;">
+            <h2 class="modal-title" style="text-align:center;">✏️ Đổi tên bàn</h2>
+            <p style="text-align:center;color:var(--text-muted);font-size:14px;margin-bottom:20px;">Nhập tên mới cho bàn
+                (tên khách, v.v.)</p>
+            <input type="text" id="rename-table-input" class="rename-input"
+                placeholder="Ví dụ: Anh Nam, Nhóm 5 người..." maxlength="30"
+                onkeydown="if(event.key==='Enter') confirmRenameTable()">
+            <div style="display:flex;gap:10px;margin-top:16px;">
+                <button class="btn btn-primary" style="flex:1;height:48px;" onclick="confirmRenameTable()">✓ Lưu
+                    tên</button>
+                <button class="btn btn-secondary" style="flex:1;height:48px;" onclick="closeRenameModal()">Hủy</button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
+
 </html>
