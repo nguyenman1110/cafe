@@ -883,6 +883,31 @@ function renderMenu() {
         }).join('');
 }
 
+// ── Export / Backup Data ──────────────────────────────────────
+window.exportData = function() {
+    const data = {
+        products: JSON.parse(localStorage.getItem(STORAGE_PRODUCTS) || '[]'),
+        transactions: JSON.parse(localStorage.getItem(STORAGE_TRANSACTIONS) || '[]'),
+        tables: JSON.parse(localStorage.getItem(STORAGE_TABLES) || '{}')
+    };
+    const dateStr = new Date().toISOString().split('T')[0];
+    const fileName = `cafe-goc-da-backup-${dateStr}.json`;
+    const jsonStr = JSON.stringify(data, null, 2);
+    
+    // Create download link
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    alert('Đã tải xuống file sao lưu dữ liệu!');
+};
+
 // ── Init ──────────────────────────────────────────────────────
 renderTableBar();
 renderCategoryTabs();
