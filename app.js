@@ -288,8 +288,8 @@ window.addToCart = function (productId) {
         alert(`${product.name} chỉ còn ${product.stock} trong kho!`);
         return;
     }
-    if (existing) { existing.quantity += 1; }
-    else { table.cart.push({ id: product.id, name: product.name, price: product.price, icon: product.icon, quantity: 1 }); }
+    if (existing) { existing.quantity += 1; existing.packed = false; }
+    else { table.cart.push({ id: product.id, name: product.name, price: product.price, icon: product.icon, quantity: 1, packed: false }); }
     saveTables();
     renderCart();
     renderTableBar();
@@ -308,6 +308,14 @@ window.updateQuantity = function (id, delta) {
     saveTables();
     renderCart();
     renderTableBar();
+};
+
+window.toggleItemPacked = function (id) {
+    const table = tables[currentTableId]; if (!table) return;
+    const item = table.cart.find(i => i.id === id); if (!item) return;
+    item.packed = !item.packed;
+    saveTables();
+    renderCart();
 };
 
 function renderCart() {
@@ -340,17 +348,24 @@ function renderCart() {
     cart.forEach(item => {
         const div = document.createElement('div');
         div.className = 'cart-item';
+        // Add a modern checkbox block for packing
+        const packedStyle = item.packed ? 'text-decoration:line-through;color:var(--text-muted);' : '';
+        const checkboxStyle = `display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:4px;border:2px solid ${item.packed ? 'var(--primary)' : 'var(--border)'};background:${item.packed ? 'var(--primary)' : 'transparent'};color:white;font-size:12px;margin-right:8px;cursor:pointer;flex-shrink:0;`;
+        
         div.innerHTML = `
             <div class="cart-item-details">
-                <div class="cart-item-name">${item.icon} ${item.name}</div>
-                <div class="cart-item-price">${fmt(item.price)}</div>
-                <div class="quantity-control">
+                <div class="cart-item-name" style="display:flex;align-items:center;${packedStyle}">
+                    <span onclick="toggleItemPacked(${item.id})" style="${checkboxStyle}">${item.packed ? '✓' : ''}</span>
+                    <span style="overflow:hidden;text-overflow:ellipsis;">${item.icon} ${item.name}</span>
+                </div>
+                <div class="cart-item-price" style="margin-left:28px;">${fmt(item.price)}</div>
+                <div class="quantity-control" style="margin-left:28px;${item.packed ? 'opacity:0.5;' : ''}">
                     <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
                     <span style="font-weight:700;min-width:20px;text-align:center;">${item.quantity}</span>
                     <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                 </div>
             </div>
-            <div style="font-weight:800;white-space:nowrap;padding-top:4px;">${fmt(item.price * item.quantity)}</div>`;
+            <div style="font-weight:800;white-space:nowrap;padding-top:4px;${packedStyle}">${fmt(item.price * item.quantity)}</div>`;
         frag.appendChild(div);
     });
     container.appendChild(frag);
